@@ -15,4 +15,5 @@ var responses = make([]*Rsvp, 0, 10)
 
 func main() {
 	handler.LoadTemplates()
+	handler.Handler()
 }
