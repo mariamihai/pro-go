@@ -48,6 +48,8 @@ func formHandler(writer http.ResponseWriter, request *http.Request) {
 			Rsvp:   &Rsvp{},
 			Errors: []string{},
 		})
+
+		return
 	}
 
 	if request.Method == http.MethodPost {
@@ -58,6 +60,26 @@ func formHandler(writer http.ResponseWriter, request *http.Request) {
 			Email:      request.Form["email"][0],
 			Phone:      request.Form["phone"][0],
 			WillAttend: request.Form["willattend"][0] == "true",
+		}
+
+		errors := []string{}
+
+		if response.Name == "" {
+			errors = append(errors, "PLease enter your name")
+		}
+		if response.Email == "" {
+			errors = append(errors, "PLease enter your email")
+		}
+		if response.Phone == "" {
+			errors = append(errors, "PLease enter your phone")
+		}
+		if len(errors) > 0 {
+			templates["form"].Execute(writer, formData{
+				Rsvp:   &response,
+				Errors: errors,
+			})
+
+			return
 		}
 
 		responses = append(responses, &response)
