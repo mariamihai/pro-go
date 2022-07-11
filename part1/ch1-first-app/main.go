@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"partyinvites/handler"
 )
 
 type Rsvp struct {
@@ -14,5 +14,5 @@ type Rsvp struct {
 var responses = make([]*Rsvp, 0, 10)
 
 func main() {
-	fmt.Println("TODO")
+	handler.LoadTemplates()
 }
